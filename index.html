@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="./style.css">
+  
+  <!-- font awesome cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="./logo.png" alt="Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Contact</a></li>
+        <li class="cart-icon" onclick="toggleCart()">
+          <i class="fa-solid fa-cart-shopping"></i> Cart <span id="cart-count">0</span>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="products-container"></section>
+
+  <!-- Cart and Checkout -->
+  <section id="cart-container" class="hidden">
+      <button id="close-cart" class="close-cart-btn">X</button>
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <p>Total: $<span id="total-price">0.00</span></p>
+      <button id="clear-cart">Clear Cart</button>
+
+      <!-- Checkout Section -->
+      <div id="checkout-section">
+        <label for="promo-code">Enter Promo Code:</label>
+        <input type="text" id="promo-code" placeholder="Enter promo code">
+        <button id="apply-promo-btn">Apply</button>
+        <p id="promo-message"></p>
+        
+        <p>Subtotal: $<span id="subtotal-price">0.00</span></p>
+        <p id="discount-amount">Discount: $0.00</p>
+        <p>Final Total: $<span id="final-total">0.00</span></p>
+
+        <button id="checkout-btn">Checkout</button>
+      </div>
+  </section>
+
+  <footer>
+      <h4>Grocery Shop</h4>
+      <p>&copy; 2025 Amin Babu. All rights reserved.</p>
+  </footer>
+  
+  <script src="./JS/products.js"></script>
+  <script src="./JS/cart.js"></script>
+  <script src="./JS/ui.js"></script>
+</body>
+</html>
