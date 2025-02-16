@@ -3,21 +3,9 @@ function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// Initialize cart
+// Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-updateCartUI();
-
-// Add item to cart
-function addToCart(id, title, price, image) {
-  const existingItem = cart.find(item => item.id === id);
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({ id, title, price, image, quantity: 1 });
-  }
-  saveCart();
-  updateCartUI();
-}
+console.log("Cart on load:", cart);  // Debugging: Check if cart is loaded properly
 
 // Update Cart UI
 function updateCartUI() {
@@ -28,12 +16,13 @@ function updateCartUI() {
   const discountElement = document.getElementById("discount-amount");
   const finalTotalElement = document.getElementById("final-total");
 
+  // Reset the cart items container and totals
   cartItemsContainer.innerHTML = "";
   let subtotal = 0;
 
-  // Loop through each item and display it
+  // Ensure cart has valid data and loop through each item
   cart.forEach(item => {
-    subtotal += item.price * item.quantity;
+    subtotal += item.price * item.quantity; // Calculate subtotal based on quantity and price
     const cartItem = document.createElement("div");
     cartItem.innerHTML = `            
       <div id="main">
@@ -50,18 +39,38 @@ function updateCartUI() {
     cartItemsContainer.appendChild(cartItem);
   });
 
-  // Update cart count and prices
-  cartCount.textContent = cart.length; // Update cart count in the navbar
+  // Check the cart content here for debugging
+  console.log("Updated Cart:", cart);
+  
+  // Update cart count
+  cartCount.textContent = cart.length; 
 
   // Calculate discount and final total
   const discount = subtotal * discountAmount;
   const finalTotal = subtotal - discount;
 
+  // Debugging the calculated values
+  console.log("Subtotal:", subtotal);
+  console.log("Discount:", discount);
+  console.log("Final Total:", finalTotal);
+
   // Display Subtotal, Discount, and Final Total
   subtotalPriceElement.textContent = subtotal.toFixed(2);
-  totalPriceElement.textContent = subtotal.toFixed(2); // Display the subtotal in the navbar
+  totalPriceElement.textContent = subtotal.toFixed(2);  // Display subtotal in navbar
   discountElement.textContent = `Discount: $${discount.toFixed(2)}`;
   finalTotalElement.textContent = `$${finalTotal.toFixed(2)}`;
+}
+
+// Add item to cart
+function addToCart(id, title, price, image) {
+  const existingItem = cart.find(item => item.id === id);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ id, title, price, image, quantity: 1 });
+  }
+  saveCart();
+  updateCartUI();
 }
 
 // Remove item from cart
